@@ -1,4 +1,4 @@
-package earth.terrarium.tempad.client.screen
+package earth.terrarium.tempad.client.screen.tempad
 
 import earth.terrarium.olympus.client.components.Widgets
 import earth.terrarium.olympus.client.components.base.ListWidget
@@ -10,7 +10,6 @@ import earth.terrarium.tempad.Tempad
 import earth.terrarium.tempad.api.app.AppRegistry
 import earth.terrarium.tempad.api.macro.MacroRegistry
 import earth.terrarium.tempad.client.TempadUI
-import earth.terrarium.tempad.client.TempadUI.colored
 import earth.terrarium.tempad.client.TempadUI.style
 import earth.terrarium.tempad.common.network.c2s.SaveSettingsPacket
 import earth.terrarium.tempad.common.registries.ModMenus

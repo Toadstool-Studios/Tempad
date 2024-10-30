@@ -1,4 +1,4 @@
-package earth.terrarium.tempad.client.screen
+package earth.terrarium.tempad.client.screen.tempad
 
 import earth.terrarium.olympus.client.components.Widgets
 import earth.terrarium.olympus.client.components.buttons.Button

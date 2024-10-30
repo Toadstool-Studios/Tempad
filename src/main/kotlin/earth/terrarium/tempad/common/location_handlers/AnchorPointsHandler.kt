@@ -26,7 +26,7 @@ class AnchorPointsData(anchors: Map<UUID, GlobalPos>) {
     }
 
     fun getPostions(accessor: GameProfile): Map<UUID, NamedGlobalVec3> {
-        return anchors.mapValues { getBlockEntity(it.value) }.filterValues { it != null }.mapValues { it.value!!.namedGlobalVec3 }
+        return anchors.mapValues { getBlockEntity(it.value) }.filterValues { it != null && it.canAccess(accessor) }.mapValues { it.value!!.namedGlobalVec3 }
     }
 
     operator fun plusAssign(block: SpatialAnchorBE) {

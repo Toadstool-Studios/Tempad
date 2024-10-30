@@ -2,7 +2,6 @@
 
 package earth.terrarium.tempad.client
 
-import com.hollingsworth.arsnouveau.common.items.ModItem
 import com.mojang.blaze3d.vertex.DefaultVertexFormat
 import com.mojang.blaze3d.vertex.VertexFormat
 import com.mojang.datafixers.util.Either
@@ -11,30 +10,32 @@ import com.teamresourceful.resourcefullib.client.fluid.registry.ResourcefulClien
 import earth.terrarium.tempad.Tempad
 import earth.terrarium.tempad.client.block.SpatialAnchorRenderer
 import earth.terrarium.tempad.client.entity.TimedoorRenderer
-import earth.terrarium.tempad.client.screen.*
+import earth.terrarium.tempad.client.screen.anchor.SpatialAnchorScreen
+import earth.terrarium.tempad.client.screen.tempad.NewLocationScreen
+import earth.terrarium.tempad.client.screen.tempad.SettingsScreen
+import earth.terrarium.tempad.client.screen.tempad.TeleportScreen
+import earth.terrarium.tempad.client.screen.tempad.TimelineScreen
 import earth.terrarium.tempad.client.tooltip.*
-import earth.terrarium.tempad.common.compat.ars_nouvaue.ArsCompat
+import earth.terrarium.tempad.common.compat.ArsCompat
 import earth.terrarium.tempad.common.config.ClientConfig
 import earth.terrarium.tempad.common.data.InstalledUpgradesComponent
 import earth.terrarium.tempad.common.menu.AbstractTempadMenu
+import earth.terrarium.tempad.common.network.s2c.OpenSpatialAnchor
 import earth.terrarium.tempad.common.registries.*
 import earth.terrarium.tempad.common.utils.get
 import earth.terrarium.tempad.common.utils.safeLet
 import earth.terrarium.tempad.common.utils.vanillaId
 import earth.terrarium.tempad.tempadId
+import net.minecraft.client.Minecraft
 import net.minecraft.client.color.block.BlockColor
 import net.minecraft.client.color.item.ItemColor
-import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.client.renderer.GameRenderer
-import net.minecraft.client.renderer.ItemBlockRenderTypes
 import net.minecraft.client.renderer.RenderStateShard
 import net.minecraft.client.renderer.RenderStateShard.ShaderStateShard
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.client.renderer.RenderType.*
 import net.minecraft.client.renderer.ShaderInstance
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers
-import net.minecraft.client.renderer.chunk.RenderChunkRegion
 import net.minecraft.client.renderer.entity.EntityRenderers
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction
 import net.minecraft.client.renderer.item.ItemProperties
@@ -207,5 +208,9 @@ object TempadClient {
                 event.tooltipElements.add(2, Either.right(it))
             }
         }
+    }
+
+    fun openSpatialAnchorScreen(packet: OpenSpatialAnchor) {
+        Minecraft.getInstance().setScreen(SpatialAnchorScreen(packet.blockPos, packet.name, packet.color, packet.access))
     }
 }

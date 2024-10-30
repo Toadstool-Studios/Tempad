@@ -60,6 +60,7 @@ class Tempad(bus: IEventBus) {
         ModApps.init()
         ModSizing.init()
         ModAttachments.registry.init()
+        ModAttachments.syncer.init()
         ModComponents.registry.init()
         ModContext.init()
         ModEntities.entities.init()
@@ -74,6 +75,7 @@ class Tempad(bus: IEventBus) {
         ModRecipes.serializers.init()
         ModFluids.dataRegistry.init()
         ModFluids.registry.init()
+        ModSounds.registry.init()
         ModLocations.init()
 
         bus.addListener { event: RegisterCapabilitiesEvent ->

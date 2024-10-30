@@ -7,6 +7,8 @@ import earth.terrarium.tempad.common.block.SpatialAnchorBE
 import earth.terrarium.tempad.common.block.SpatialAnchorBlock
 import earth.terrarium.tempad.common.block.RudimentaryTempadBlock
 import earth.terrarium.tempad.common.block.RudimentaryTempadBE
+import earth.terrarium.tempad.common.block.WorkstationBE
+import earth.terrarium.tempad.common.block.WorkstationBlock
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.level.block.entity.BlockEntityType
 
@@ -28,5 +30,13 @@ object ModBlocks {
 
     val spatialAnchorBE by blockEntities.register("spatial_anchor") {
         BlockEntityType.Builder.of(::SpatialAnchorBE, spatialAnchor).build(null)
+    }
+
+    val workstation by blocks.register("workstation") {
+        WorkstationBlock()
+    }
+
+    val workstationBE by blockEntities.register("workstation") {
+        BlockEntityType.Builder.of(::WorkstationBE, workstation).build(null)
     }
 }

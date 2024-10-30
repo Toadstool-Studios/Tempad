@@ -2,10 +2,13 @@ package earth.terrarium.tempad.common.registries
 
 import com.mojang.authlib.GameProfile
 import com.mojang.serialization.Codec
+import com.teamresourceful.resourcefullib.common.bytecodecs.StreamCodecByteCodec
 import com.teamresourceful.resourcefullib.common.color.Color
 import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistries
 import com.teamresourceful.resourcefullib.common.registry.ResourcefulRegistry
 import com.teamresourceful.resourcefullibkt.common.getValue
+import earth.terrarium.common_storage_lib.data.NeoDataLib
+import earth.terrarium.common_storage_lib.data.sync.DataSyncSerializer
 import earth.terrarium.tempad.Tempad
 import earth.terrarium.tempad.common.data.FavoriteLocationAttachment
 import earth.terrarium.tempad.common.data.NamedGlobalPosAttachment
@@ -24,6 +27,7 @@ import java.util.UUID
 
 object ModAttachments {
     val registry: ResourcefulRegistry<AttachmentType<*>> = ResourcefulRegistries.create(NeoForgeRegistries.ATTACHMENT_TYPES, Tempad.MOD_ID)
+    val syncer: ResourcefulRegistry<DataSyncSerializer<*>> = ResourcefulRegistries.create(NeoDataLib.SYNC_SERIALIZERS, Tempad.MOD_ID)
 
     val locations: AttachmentType<NamedGlobalPosAttachment> by registry.register("saved_positions") {
         attachmentType(::NamedGlobalPosAttachment) {
@@ -68,7 +72,11 @@ object ModAttachments {
         }
     }
 
-    val visibility: AttachmentType<ResourceLocation> by registry.register("visibility") {
+    val syncedColor: DataSyncSerializer<Color> by syncer.register("color") {
+        DataSyncSerializer.create( { color}, StreamCodecByteCodec.to(Color.BYTE_CODEC))
+    }
+
+    val access: AttachmentType<ResourceLocation> by registry.register("access") {
         attachmentType({ "private".tempadId }) {
             codec = ResourceLocation.CODEC
         }
@@ -100,7 +108,8 @@ var AttachmentHolder.ageUntilAllowedThroughTimedoor by ModAttachments.ageSinceLa
 
 var AttachmentHolder.owner by ModAttachments.owner.optional()
 var AttachmentHolder.chrononContent by ModAttachments.chrononContent
-var AttachmentHolder.color by ModAttachments.color
+var AttachmentHolder.color by ModAttachments.color.synced(ModAttachments.syncedColor)
 var AttachmentHolder.id by ModAttachments.id.optional()
+var AttachmentHolder.accessId by ModAttachments.access
 
 val anchorPoints by ModAttachments.anchorPoints.serverData

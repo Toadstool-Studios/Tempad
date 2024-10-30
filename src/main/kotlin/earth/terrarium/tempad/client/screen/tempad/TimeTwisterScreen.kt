@@ -1,7 +1,6 @@
-package earth.terrarium.tempad.client.screen
+package earth.terrarium.tempad.client.screen.tempad
 
 import com.mojang.blaze3d.platform.InputConstants
-import com.mojang.blaze3d.platform.MacosUtil
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.BufferBuilder
 import com.mojang.blaze3d.vertex.BufferUploader
@@ -16,7 +15,6 @@ import earth.terrarium.tempad.common.utils.component
 import earth.terrarium.tempad.common.utils.sendToServer
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
-import net.minecraft.client.gui.components.PlayerFaceRenderer
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.client.renderer.GameRenderer
 import net.minecraft.network.chat.CommonComponents

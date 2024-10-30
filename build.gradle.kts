@@ -29,6 +29,7 @@ repositories {
     maven(url = "https://modmaven.dev/" )
     maven(url = "https://api.modrinth.com/maven")
     maven(url = "https://maven.blamejared.com" )
+    maven(url = "https://cursemaven.com" )
     mavenLocal()
 }
 
@@ -68,12 +69,16 @@ dependencies {
         jarJar.pin(it, "[${resourcefulLibKtVersion})")
     }
 
-    implementation(group = "earth.terrarium.olympus", name = "olympus-neoforge-${minecraftVersion}", version = "1.0.9+beta.6") {
+    implementation(group = "earth.terrarium.olympus", name = "olympus-neoforge-${minecraftVersion}", version = "1.0.10") {
+        isTransitive = false
+    }.also { jarJar(it) }
+
+    implementation(group = "earth.terrarium.argonauts", name = "argonauts-neoforge-${minecraftVersion}", version = "2.0.0") {
         isTransitive = false
     }
 
-    jarJar(group = "earth.terrarium.olympus", name = "olympus-neoforge-${minecraftVersion}", version = "1.0.9+beta.6").also {
-        jarJar.pin(it, "[1.0.9+beta.6)")
+    implementation(group = "earth.terrarium.cadmus", name = "cadmus-neoforge-${minecraftVersion}", version = "2.0.0") {
+        isTransitive = false
     }
 
     implementation("top.theillusivec4.curios:curios-neoforge:${curiosVersion}")
@@ -91,6 +96,12 @@ dependencies {
     implementation("com.hollingsworth.ars_nouveau:ars_nouveau-${minecraftVersion}.0:${arsNouveauVersion}") {
         exclude(group = "curse.maven")
     }
+
+    compileOnly(group = "curse.maven", name = "ftb-teams-forge-404468", version = "5631446")
+
+    implementation(group = "earth.terrarium.common_storage_lib", name = "common-storage-lib-data-neoforge-$minecraftVersion", version = "0.0.1") {
+        isTransitive = false
+    }.let { jarJar(it) }
 }
 
 java {

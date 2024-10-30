@@ -20,7 +20,7 @@ class SpatialAnchorItem: BlockItem(ModBlocks.spatialAnchor, Properties()) {
     ): Boolean {
         (level.getBlockEntity(pos) as? SpatialAnchorBE)?.let { blockEntity ->
             stack.color?.let { blockEntity.color = it }
-            // stack.get(DataComponents.CUSTOM_NAME)?.let { blockEntity.name = it }
+            stack.get(DataComponents.CUSTOM_NAME)?.let { blockEntity.name = it }
             stack.anchorId?.let { blockEntity.id = it }
             player?.let { blockEntity.owner = it.gameProfile }
         }

@@ -1,4 +1,4 @@
-package earth.terrarium.tempad.common.compat.jade
+package earth.terrarium.tempad.common.compat
 
 import earth.terrarium.tempad.common.entity.TimedoorEntity
 import earth.terrarium.tempad.tempadId

@@ -114,6 +114,15 @@
   "app.tempad.teleport.delete": "Delete",
   "app.tempad.teleport.no_selection": "No location selected. Click on a location view details",
 
+  "screen.tempad.spatial_anchor": "Spatial Anchor Settings",
+  "screen.tempad.spatial_anchor.access_field" : "Access",
+
+  "access.tempad.public": "Public",
+  "access.tempad.private": "Private",
+  "access.tempad.guild": "Guild",
+  "access.tempad.party": "Party",
+  "access.tempad.guild_or_party": "Guild or Party",
+
   "app.tempad.tp_to.teleport": "Teleport",
   "app.tempad.tp_to.selected": "Selected",
 

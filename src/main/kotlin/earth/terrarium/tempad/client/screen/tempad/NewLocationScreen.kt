@@ -1,4 +1,4 @@
-package earth.terrarium.tempad.client.screen
+package earth.terrarium.tempad.client.screen.tempad
 
 import com.teamresourceful.resourcefullib.common.color.Color
 import com.teamresourceful.resourcefullib.common.color.ConstantColors
@@ -10,10 +10,8 @@ import earth.terrarium.olympus.client.ui.UIIcons
 import earth.terrarium.tempad.Tempad
 import earth.terrarium.tempad.client.TempadUI
 import earth.terrarium.tempad.client.TempadUI.colored
-import earth.terrarium.tempad.client.TempadUI.selectableColored
 import earth.terrarium.tempad.client.state.AppearanceState
 import earth.terrarium.tempad.client.state.MutableState
-import earth.terrarium.tempad.tempadId
 import earth.terrarium.tempad.common.network.c2s.CreateLocationPacket
 import earth.terrarium.tempad.common.registries.ModMenus
 import earth.terrarium.tempad.common.utils.globalPos
@@ -21,7 +19,6 @@ import earth.terrarium.tempad.common.utils.sendToServer
 import earth.terrarium.tempad.common.utils.toLanguageKey
 import net.minecraft.client.gui.components.StringWidget
 import net.minecraft.client.gui.layouts.FrameLayout
-import net.minecraft.client.gui.layouts.GridLayout
 import net.minecraft.client.gui.layouts.LinearLayout
 import net.minecraft.core.Vec3i
 import net.minecraft.network.chat.CommonComponents

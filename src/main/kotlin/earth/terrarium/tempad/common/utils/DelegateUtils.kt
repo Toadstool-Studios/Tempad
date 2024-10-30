@@ -1,16 +1,23 @@
 package earth.terrarium.tempad.common.utils
 
+import earth.terrarium.common_storage_lib.data.network.BlockEntitySyncPacket
+import earth.terrarium.common_storage_lib.data.network.EntitySyncPacket
+import earth.terrarium.common_storage_lib.data.sync.DataSyncSerializer
 import earth.terrarium.tempad.Tempad
 import net.minecraft.core.component.DataComponentType
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializer
 import net.minecraft.network.syncher.SynchedEntityData
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.Container
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.level.ChunkPos
+import net.minecraft.world.level.block.entity.BlockEntity
 import net.neoforged.neoforge.attachment.AttachmentHolder
 import net.neoforged.neoforge.attachment.AttachmentType
 import net.neoforged.neoforge.common.MutableDataComponentHolder
+import net.neoforged.neoforge.network.PacketDistributor
 import java.util.*
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -40,7 +47,50 @@ class OptionalAttachmentDelegate<T : Any>(private val key: AttachmentType<T>) :
     }
 }
 
+class SyncedOptionalAttachmentDelegate<T : Any>(private val key: AttachmentType<T>, private val sync: DataSyncSerializer<T>) {
+    operator fun getValue(thisRef: AttachmentHolder, property: KProperty<*>): T? =
+        thisRef.getExistingData(key).orElse(null)
+
+    operator fun setValue(thisRef: AttachmentHolder, property: KProperty<*>, value: T?) {
+        if (value == null) {
+            thisRef -= key
+        } else {
+            thisRef[key] = value
+            // Sync the data here
+        }
+        syncData(thisRef, sync, value)
+    }
+}
+
+class SyncedAttachmentDelegate<T : Any>(private val key: AttachmentType<T>, private val sync: DataSyncSerializer<T>) :
+    ReadWriteProperty<AttachmentHolder, T> {
+    override operator fun getValue(thisRef: AttachmentHolder, property: KProperty<*>): T =
+        thisRef.getData(key)
+
+    override operator fun setValue(thisRef: AttachmentHolder, property: KProperty<*>, value: T) {
+        thisRef[key] = value
+        syncData(thisRef, sync, value)
+    }
+}
+
+
+
+private fun <T : Any> syncData(thisRef: AttachmentHolder, sync: DataSyncSerializer<T>, value: T?) {
+    if (thisRef is Entity && !thisRef.level().isClientSide) {
+        PacketDistributor.sendToPlayersTrackingEntity(thisRef, EntitySyncPacket.of(thisRef, sync, value))
+    }
+
+    if (thisRef is BlockEntity && !thisRef.level!!.isClientSide) {
+        PacketDistributor.sendToPlayersTrackingChunk(
+            thisRef.level as ServerLevel, ChunkPos(thisRef.blockPos),
+            BlockEntitySyncPacket.of(thisRef, sync, value)
+        )
+    }
+}
+
 fun <T : Any> AttachmentType<T>.optional() = OptionalAttachmentDelegate(this)
+fun <T : Any> AttachmentType<T>.syncedOptional(sync: DataSyncSerializer<T>) = SyncedOptionalAttachmentDelegate(this, sync)
+fun <T : Any> AttachmentType<T>.synced(sync: DataSyncSerializer<T>) = SyncedAttachmentDelegate(this, sync)
 
 val <T : Any> AttachmentType<T>.serverData get() = ServerDataDelegate(this)
 val <T : Any> AttachmentType<T>.optionalServerData get() = OptionalServerDataDelegate(this)

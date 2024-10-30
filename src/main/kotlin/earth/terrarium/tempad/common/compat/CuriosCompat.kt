@@ -1,4 +1,4 @@
-package earth.terrarium.tempad.common.compat.curios
+package earth.terrarium.tempad.common.compat
 
 import com.teamresourceful.bytecodecs.base.ByteCodec
 import com.teamresourceful.bytecodecs.base.`object`.ObjectByteCodec
@@ -8,13 +8,12 @@ import earth.terrarium.tempad.tempadId
 import earth.terrarium.tempad.api.context.ContextRegistry
 import earth.terrarium.tempad.api.context.ContextType
 import earth.terrarium.tempad.api.context.SyncableContext
-import earth.terrarium.tempad.common.compat.curios.CuriosContext.CuriosSlotInfo
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import top.theillusivec4.curios.api.CuriosApi
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler
 
-class CuriosContext(val player: Player, override val data: CuriosSlotInfo) : SyncableContext<CuriosSlotInfo> {
+class CuriosContext(val player: Player, override val data: CuriosSlotInfo) : SyncableContext<CuriosContext.CuriosSlotInfo> {
     val inventory: MutableMap<String, ICurioStacksHandler> = CuriosApi.getCuriosInventory(player).orElseThrow().curios
 
     override val type: ContextType<CuriosSlotInfo> = Companion.type
@@ -51,7 +50,7 @@ fun initCuriosCompat() {
             for (index in 0 until handler.stacks.slots) {
                 val stack = handler.stacks.getStackInSlot(index)
                 if (filter(stack)) {
-                    return@registerLocator CuriosContext(player, CuriosSlotInfo(identifier, index))
+                    return@registerLocator CuriosContext(player, CuriosContext.CuriosSlotInfo(identifier, index))
                 }
             }
         }

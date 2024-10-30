@@ -3,8 +3,10 @@ package earth.terrarium.tempad.common.block
 import com.mojang.serialization.MapCodec
 import com.teamresourceful.resourcefullib.common.color.ConstantColors
 import earth.terrarium.tempad.Tempad
+import earth.terrarium.tempad.common.network.s2c.OpenSpatialAnchor
 import earth.terrarium.tempad.common.registries.*
 import earth.terrarium.tempad.common.utils.contains
+import earth.terrarium.tempad.common.utils.sendToClient
 import earth.terrarium.tempad.common.utils.stack
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -102,7 +104,11 @@ class SpatialAnchorBlock : BaseEntityBlock(Properties.of()) {
         player: Player,
         hitResult: BlockHitResult,
     ): InteractionResult {
-        return super.useWithoutItem(state, level, pos, player, hitResult)
+        if (level.isClientSide) return InteractionResult.sidedSuccess(level.isClientSide)
+        (level.getBlockEntity(pos) as? SpatialAnchorBE)?.let {
+            OpenSpatialAnchor(pos, it.color, it.name.string, it.accessId).sendToClient(player)
+        }
+        return InteractionResult.sidedSuccess(level.isClientSide)
     }
 
     override fun getDrops(state: BlockState, params: LootParams.Builder): MutableList<ItemStack> {

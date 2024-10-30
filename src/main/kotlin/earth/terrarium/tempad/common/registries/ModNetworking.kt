@@ -18,8 +18,10 @@ object ModNetworking {
         channel.register(SaveSettingsPacket.type)
         channel.register(SetFavoritePacket.type)
         channel.register(WriteToCardPacket.type)
+        channel.register(UpdateAnchorPacket)
 
         channel.register(RotatePlayerMomentumPacket.type)
         channel.register(OpenTimeTwister.type)
+        channel.register(OpenSpatialAnchor)
     }
 }

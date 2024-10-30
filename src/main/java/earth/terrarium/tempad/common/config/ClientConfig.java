@@ -4,7 +4,7 @@ import com.teamresourceful.resourcefulconfig.api.annotations.Comment;
 import com.teamresourceful.resourcefulconfig.api.annotations.Config;
 import com.teamresourceful.resourcefulconfig.api.annotations.ConfigEntry;
 import com.teamresourceful.resourcefulconfig.api.types.options.EntryType;
-import earth.terrarium.tempad.client.screen.Sorting;
+import earth.terrarium.tempad.client.screen.tempad.Sorting;
 
 @Config("tempad-client")
 public class ClientConfig {

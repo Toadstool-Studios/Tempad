@@ -1,4 +1,4 @@
-package earth.terrarium.tempad.common.compat.ars_nouvaue
+package earth.terrarium.tempad.common.compat
 
 import com.hollingsworth.arsnouveau.common.light.LightManager
 import earth.terrarium.tempad.common.entity.TimedoorEntity

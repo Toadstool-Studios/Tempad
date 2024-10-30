@@ -17,11 +17,15 @@ import earth.terrarium.tempad.api.tva_device.chronons
 import earth.terrarium.tempad.common.config.CommonConfig
 import earth.terrarium.tempad.common.network.s2c.RotatePlayerMomentumPacket
 import earth.terrarium.tempad.common.registries.ModEntities
+import earth.terrarium.tempad.common.registries.ModSounds
 import earth.terrarium.tempad.common.registries.ModTags
 import earth.terrarium.tempad.common.registries.ageUntilAllowedThroughTimedoor
 import earth.terrarium.tempad.common.registries.chrononContent
 import earth.terrarium.tempad.common.utils.*
 import net.minecraft.core.particles.DustParticleOptions
+import net.minecraft.core.particles.ParticleOptions
+import net.minecraft.core.particles.ParticleType
+import net.minecraft.core.particles.ParticleTypes
 import net.minecraft.core.registries.Registries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
@@ -29,6 +33,7 @@ import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
 import net.minecraft.resources.ResourceKey
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.*
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
@@ -41,7 +46,7 @@ import kotlin.jvm.optionals.getOrNull
 
 class TimedoorEntity(type: EntityType<*>, level: Level) : Entity(type, level) {
     companion object {
-        internal const val IDLE_BEFORE_START = 15
+        internal const val IDLE_BEFORE_START = 26
         internal const val ANIMATION_LENGTH = 5
         private val CLOSING_TIME = createDataKey<TimedoorEntity, Int>(EntityDataSerializers.INT)
         private val COLOR = createDataKey<TimedoorEntity, Color>(ModEntities.colorSerializer)
@@ -227,13 +232,16 @@ class TimedoorEntity(type: EntityType<*>, level: Level) : Entity(type, level) {
                 this.fixupDimensions()
                 this.boundingBox = makeBoundingBox()
             }
-            if (tickCount < IDLE_BEFORE_START) {
+            var percent = (tickCount / IDLE_BEFORE_START.toDouble())
+            if (tickCount < IDLE_BEFORE_START && random.nextDouble() < percent) {
+                percent *= 0.25
+                val y = this.y + bbHeight / 2.0
                 level().addParticle(
                     DustParticleOptions(color.vec3f, 1.0f),
                     true,
-                    x,
-                    y + bbHeight / 2.0,
-                    z,
+                    x + random.nextDouble() * percent - percent / 2,
+                    y + random.nextDouble() * percent - percent / 2,
+                    z + random.nextDouble() * percent - percent / 2,
                     0.0,
                     0.0,
                     0.0,
@@ -338,4 +346,10 @@ class TimedoorEntity(type: EntityType<*>, level: Level) : Entity(type, level) {
 
     override fun readAdditionalSaveData(pCompound: CompoundTag) {}
     override fun addAdditionalSaveData(pCompound: CompoundTag) {}
+
+    override fun onAddedToLevel() {
+        super.onAddedToLevel()
+        if (level().isClientSide) return
+        level().playSound(null, blockPosition(), ModSounds.timedoorOpen, soundSource, 1.0f, 1.0f)
+    }
 }

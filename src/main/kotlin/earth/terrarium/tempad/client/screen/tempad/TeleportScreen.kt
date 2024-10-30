@@ -1,4 +1,4 @@
-package earth.terrarium.tempad.client.screen
+package earth.terrarium.tempad.client.screen.tempad
 
 import com.teamresourceful.resourcefullib.common.color.ConstantColors
 import com.teamresourceful.resourcefullib.common.utils.TriState
