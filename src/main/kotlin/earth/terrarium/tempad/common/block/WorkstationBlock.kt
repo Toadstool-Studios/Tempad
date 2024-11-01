@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.RenderShape
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 
-class WorkstationBlock : BaseEntityBlock(Properties.of()) {
+class WorkstationBlock : BaseEntityBlock(Properties.of().noOcclusion()) {
     val codec: MapCodec<out BaseEntityBlock?> = simpleCodec { ModBlocks.workstation }
 
     override fun codec(): MapCodec<out BaseEntityBlock?> = codec
