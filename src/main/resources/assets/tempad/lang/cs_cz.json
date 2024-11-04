@@ -1,0 +1,197 @@
+{
+  "gui.tempad.search_field": "Hledat...",
+  "gui.tempad.name_field": "Jméno...",
+  "gui.tempad.teleport_disabled": "Nemůžete se teleportovat na tuto pozici",
+  "gui.tempad.delete": "Smazat pozici",
+  "gui.tempad.delete_disabled": "Nemůžete smazat tuto pozici",
+  "gui.tempad.favorite": "Oblíbit pozici",
+  "gui.tempad.unfavorite": "Od-oblíbit pozici",
+  "gui.tempad.timedoor": "Časová brána",
+  "gui.tempad.dimension": "Dim: %s",
+  "gui.tempad.no_locations.first_line": "Zmáčkni [+] aby jste",
+  "gui.tempad.no_locations.second_line": "přidali pozici",
+  "gui.tempad.no_selection.first_line": "vyberali pozici",
+  "gui.tempad.no_selection.second_line": "pro více informací",
+  "gui.tempad.x": "X: %s",
+  "gui.tempad.y": "Y: %s",
+  "gui.tempad.z": "Z: %s",
+  "gui.tempad.angle": "Úhel: %s",
+  "tooltip.tempad.durability_cost": "Zbývající použití: %s/%s",
+  "tooltip.tempad.timeleft": "Nabijení: %s",
+  "tooltip.tempad.fullycharged": "Plně nabito",
+  "tooltip.tempad.timer_cost": "Cooldown: %s",
+  "tooltip.tempad.energy_info": "Energie: %s/%s RF",
+  "tooltip.tempad.energy_cost": "Konsumuje %s RF za použití",
+  "tooltip.tempad.item_option_info": "Vyžaduje palivo k použití",
+  "tooltip.tempad.experience_level_cost": "Vyžaduje %s Level(ů) na otevření Časové brány",
+  "tooltip.tempad.experience_points_cost": "Vyžaduje %s Úrovní zkušenosti na otevření Časové brány",
+  "item.tempad.tempad": [
+    { "text": "Tempad", "color": "#ff6f00" }
+  ],
+  "advancements.tempad.tempad": "Pro tok času. Vždycky.",
+  "advancements.tempad.tempad.description": "Získej Tempad",
+  "advancements.tempad.he_who_remains": "Velké poslání!",
+  "advancements.tempad.he_who_remains.description": "Získej 'Ten kdo zůstal'' Tempad",
+  "subtitles.tempad.entity.timedoor.open": "Časová brána se otevírá",
+  "dimension.minecraft.overworld": "Hlavní svět",
+  "dimension.minecraft.the_nether": "Nether",
+  "dimension.minecraft.the_end": "End",
+  "tempad_option.tempad.energy": "Energie: %s/%s §b⚡§r",
+  "tempad_option.tempad.energy_cost": "Cena %s §b⚡§r",
+  "item.tempad.empty_tank": "Prázdný",
+  "tempad_option.tempad.fluid": "%s: %s/%s §6\uD83E\uDEA3§r",
+
+  "item.tempad.blank_card": "Prázdná karta",
+  "item.tempad.location_card": "Karta lokace",
+  "item.tempad.location_card.creator_toolip": "Vytovřena %s",
+  "item.tempad.location_card.shift_toolip": "Podrž [%s] pro více informací",
+  "item.tempad.location_card.added_location": "Přidaná lokace: %s",
+  "item.tempad.location_card.add_location": "Klikněte pravým tlačítkem pro nastavení lokace",
+  "item.tempad.location_card.set_name": "Přejmenujte v kovadlině pro nastavení názvu lokace",
+  "item.tempad.location_card.set_location": "Nastavte lokaci: %s",
+
+  "item.tempad.temporal_shielding": "Časový štít",
+  "item.tempad.chronometer": "Chronometr",
+  "item.tempad.status_emitter": "Vysílač stavu",
+  "item.tempad.time_twister": "Časové vřeteno",
+  "item.tempad.new_location_upgrade": "Vylepšení: Ukládání lokací",
+  "item.tempad.player_teleport_upgrade": "Vylepšení: Teleportování k hráčům",
+  "item.tempad.inexorable_alloy": "Neúprosná slitina",
+  "item.tempad.sacred_chronometer": "Posvátný chronometr",
+  "item.tempad.sacred_chronometer.infinite": "Nekonečný",
+
+  "fluid_type.tempad.chronon": "Chronon",
+
+  "fuel.tempad.empty": "Prázdný",
+  "fuel.tempad.empty.description": "Tento předmět nemůže obsahovat palivo",
+
+  "fuel.tempad.display": [
+    "",
+    { "text": "Naplnění: ", "color": "#91450d" },
+    { "index": 0, "color": "#ff6f00" },
+    { "text": "/", "color": "#ffcc54" },
+    { "index": 1, "color": "#ff6f00" }
+  ],
+
+  "category.tempad": "Tempad",
+  "key.tempad.favorite": "Otevřít oblíbenou lokaci",
+  "key.tempad.shortcut": "Otevřít obrazovku Tempadu",
+
+  "app.tempad.new_location": "Nová lokace",
+  "app.tempad.teleport": "Teleportovat",
+  "app.tempad.settings": "Nastavení",
+  "app.tempad.fuel": "Uprav Palivo",
+  "app.tempad.timeline": "Časová osa cestování",
+  "app.tempad.tp_to": "Teleportovat k hráči",
+
+  "app.tempad.settings.default_macro": "Výchozí Makro",
+  "app.tempad.settings.default_macro.subtitle": "Výchozí makro k použití při stisknutí klávesy [F]",
+
+  "app.tempad.settings.default_app": "Výchozí Aplikace",
+  "app.tempad.settings.default_app.subtitle": "Výchozí aplikace k otevření při kliknutí pravým tlačítkem na Tempad",
+
+  "app.tempad.settings.organization_method": "Organizace",
+  "app.tempad.settings.organization_method.subtitle": "Výchozí způsob organizace zobrazených lokací na Tempadu",
+
+  "app.tempad.new_location.name": "Jméno:",
+  "app.tempad.new_location.color": "Barva:",
+
+  "app.tempad.fuel.auto_use": "Auto použití",
+  "app.tempad.fuel.auto_use.description": "Automaticky použije palivo z inventáře",
+  "app.tempad.fuel.use": "Použít",
+  "app.tempad.fuel.use.description": "Použije předmět v slotu k naplnění Tempadu",
+  "app.tempad.fuel.transfer": "Palivo",
+  "app.tempad.fuel.transfer.description": "Přesune palivo z Tempadu do předmětu v slotu",
+
+  "app.tempad.timeline.tracking": "Sledování",
+  "app.tempad.timeline.teleport": "Teleportovat",
+
+  "app.tempad.teleport.teleport": "Teleportovat",
+  "app.tempad.teleport.favorite": "Oblíbit",
+  "app.tempad.teleport.unfavorite": "Od-oblíbit",
+  "app.tempad.teleport.delete": "Smazat",
+  "app.tempad.teleport.no_selection": "Není vybrána žádná lokace. Klikněte na lokaci pro zobrazení detailů",
+
+  "app.tempad.tp_to.teleport": "Teleportovat",
+  "app.tempad.tp_to.selected": "Vybráno",
+
+  "provider.tempad.default": "Na zařízení",
+  "provider.tempad.warps": "Z warpů",
+  "provider.tempad.player": "Hráči",
+
+  "macro.tempad.default": "Otevřít obl.",
+  "macro.tempad.default.description": "Teleportovat na oblíbenou lokaci",
+
+  "button.tempad.type": "Seřadit podle typu",
+  "button.tempad.alphabetical": "Seřadit abecedně",
+  "button.tempad.dimension": "Seřadit podle dimenze",
+
+  "marker.tempad.death": "Zemřel na",
+  "marker.tempad.respawn": "Ožil na",
+  "marker.tempad.dimension_exit": "Opustil dimenzi na",
+  "marker.tempad.dimension_enter": "Vstoupil do dimenze na",
+
+  "config.jade.plugin_tempad.timedoor": "Tempad",
+  "jade.tempad.will_close": "Zavírá se za %s sekund",
+  "jade.tempad.closing": "Zavírání...",
+  "jade.tempad.pos": "Teleportování do %s na %s",
+  "misc.tempad.return": "Vracení se do %s",
+  "tempad.tooltip.player_pos": "Namířeno: %s",
+
+  "upgrade.tempad.player": "Teleportovat k hráčům",
+  "misc.tempad.upgrades": "Nainstalovaná vylepšení:",
+  "misc.tempad.wandering": "Putování v",
+  "location.tempad.saved": [
+    "",
+    { "text": "Uložená lokace: ", "color": "#ff6f00" },
+    { "index": 0, "color": "#91450d" }
+  ],
+  "location.tempad.player.error": [
+    "",
+    { "text": "Error: ", "color": "#ff6f00" },
+    { "text": "Lokace hráče nemůže být uložena", "color": "#91450d" }
+  ],
+
+  "entity.tempad.timedoor": "Časová brána",
+  "entity.tempad.timedoor.success": "Časová brána otevřena",
+  "entity.tempad.timedoor.fail": [
+    "",
+    { "text": "Error: ", "color": "#ff6f00" },
+    { "text": "Nepodařilo se otevřít časovou bránu", "color": "#91450d" }
+  ],
+  "entity.tempad.timedoor.fail.pos": [
+    "",
+    { "text": "Error: ", "color": "#ff6f00" },
+    { "text": "Pozice nebyla initializována", "color": "#91450d" }
+  ],
+  "entity.tempad.timedoor.fail.interdimensional": [
+    "",
+    { "text": "Error: ", "color": "#ff6f00" },
+    { "text": "Cestování mezi dimensemi není povoleno", "color": "#91450d" }
+  ],
+  "entity.tempad.timedoor.fail.intradimensional_all": [
+      "",
+      { "text": "Error: ", "color": "#ff6f00" },
+      { "text": "Cestování v dimensi není povoleno", "color": "#91450d" }
+  ],
+  "entity.tempad.timedoor.fail.intradimensional": [
+      "",
+      { "text": "Error: ", "color": "#ff6f00" },
+      { "text": "Cestování v této dimensi není povoleno", "color": "#91450d" }
+  ],
+  "entity.tempad.timedoor.fail.leaving": [
+      "",
+      { "text": "Error: ", "color": "#ff6f00" },
+      { "text": "Opouštění této dimense není povoleno", "color": "#91450d" }
+  ],
+  "entity.tempad.timedoor.fail.entering": [
+      "",
+      { "text": "Error: ", "color": "#ff6f00" },
+      { "text": "Vcházení do této dimense není povoleno", "color": "#91450d" }
+  ],
+  "entity.tempad.timedoor.fail.no_chronons": [
+      "",
+      { "text": "Error: ", "color": "#ff6f00" },
+      { "text": "Nedostatek chrnononů", "color": "#91450d" }
+  ]
+}
