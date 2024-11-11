@@ -1,25 +1,23 @@
 import groovy.json.StringEscapeUtils
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    java
-    idea
     kotlin("jvm") version "2.0.0"
-    id("maven-publish")
+    id("earth.terrarium.cloche") version "0.1.5"
+
     id("com.teamresourceful.resourcefulgradle") version "0.0.+"
-    id("net.neoforged.gradle.userdev") version "7.0.153"
+
+    `maven-publish`
 }
 
-val minecraftVersion: String by project
 val modId: String by project
 
-base {
-    archivesName.set("$modId-$minecraftVersion")
-}
+val parchmentMinecraftVersion: String by project
+val parchmentMappingsVersion: String by project
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
-jarJar.enable()
+val minecraftVersion: String by project
+val neoforgeVersion: String by project
+
+private val _minecraftVersion = minecraftVersion
 
 repositories {
     maven(url = "https://maven.architectury.dev/")
@@ -32,10 +30,30 @@ repositories {
     mavenLocal()
 }
 
-dependencies {
-    val neoforgeVersion: String by project
-    val minecraft_version: String by project
+tasks.jar {
+    archiveClassifier.set(minecraftVersion)
+}
 
+cloche {
+    val _modId = modId
+
+    metadata {
+        modId.set(_modId)
+    }
+
+    minecraftVersion.set(_minecraftVersion)
+
+    neoforge {
+        loaderVersion.set(neoforgeVersion)
+    }
+
+    mappings {
+        official()
+        parchment(parchmentMappingsVersion, minecraftVersion=parchmentMinecraftVersion)
+    }
+}
+
+dependencies {
     val resourcefulConfigVersion: String by project
     val resourcefulLibVersion: String by project
     val resourcefulLibKtVersion: String by project
@@ -46,8 +64,6 @@ dependencies {
     val jadeVersion: String by project
     val jeiVersion: String by project
 
-    implementation("net.neoforged:neoforge:${neoforgeVersion}")
-
     compileOnly("mekanism:Mekanism:${mekanismVersion}:api")
 
     runtimeOnly("mekanism:Mekanism:${mekanismVersion}")
@@ -55,25 +71,29 @@ dependencies {
     runtimeOnly("mekanism:Mekanism:${mekanismVersion}:generators")
     runtimeOnly("mekanism:Mekanism:${mekanismVersion}:tools")
 
-    implementation("com.teamresourceful.resourcefulconfig:resourcefulconfig-neoforge-${minecraft_version}:${resourcefulConfigVersion}")
-    implementation("com.teamresourceful.resourcefullib:resourcefullib-neoforge-${minecraft_version}:${resourcefulLibVersion}")
+    implementation("com.teamresourceful.resourcefulconfig:resourcefulconfig-neoforge-${minecraftVersion}:${resourcefulConfigVersion}")
+    implementation("com.teamresourceful.resourcefullib:resourcefullib-neoforge-${minecraftVersion}:${resourcefulLibVersion}")
     compileOnly("com.teamresourceful:bytecodecs:1.1.0")
     implementation("thedarkcolour:kotlinforforge-neoforge:${kotlinForForgeVersion}")
-    implementation("com.teamresourceful.resourcefullibkt:resourcefullibkt-neoforge-${minecraft_version}:${resourcefulLibKtVersion}") {
+    implementation("com.teamresourceful.resourcefullibkt:resourcefullibkt-neoforge-${minecraftVersion}:${resourcefulLibKtVersion}") {
         isTransitive = false
     }
 
+    /*
     jarJar(group = "com.teamresourceful.resourcefullibkt", name = "resourcefullibkt-neoforge-${minecraft_version}", version = resourcefulLibKtVersion).also {
         jarJar.pin(it, "[${resourcefulLibKtVersion})")
     }
+    */
 
     implementation(group = "earth.terrarium.olympus", name = "olympus-neoforge-$minecraftVersion", version = "1.0.1") {
         isTransitive = false
     }
 
+    /*
     jarJar(group = "earth.terrarium.olympus", name = "olympus-neoforge-$minecraftVersion", version = "1.0.1").also {
         jarJar.pin(it, "[1.0.1)")
     }
+    */
 
     implementation("top.theillusivec4.curios:curios-neoforge:${curiosVersion}")
 
@@ -83,30 +103,16 @@ dependencies {
     implementation("maven.modrinth:jade:$jadeVersion")
 
     // compile against the JEI API but do not include it at runtime
-    compileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jeiVersion}")
-    compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jeiVersion}")
+    compileOnly("mezz.jei:jei-${minecraftVersion}-common-api:${jeiVersion}")
+    compileOnly("mezz.jei:jei-${minecraftVersion}-neoforge-api:${jeiVersion}")
     // at runtime, use the full JEI jar for NeoForge
-    runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jeiVersion}")
-}
-
-java {
-    withSourcesJar()
-}
-
-tasks.jar {
-    archiveClassifier.set("dev")
-}
-
-tasks.processResources {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    filesMatching(listOf("META-INF/neoforge.mods.toml")) {
-        expand("version" to project.version)
-    }
+    runtimeOnly("mezz.jei:jei-${minecraftVersion}-neoforge:${jeiVersion}")
 }
 
 kotlin {
+    jvmToolchain(21)
+
     compilerOptions {
-        jvmTarget.set(JvmTarget.JVM_21)
         freeCompilerArgs.add("-Xjvm-default=all")
         freeCompilerArgs.add("-Xcontext-receivers")
     }
@@ -119,7 +125,6 @@ kotlin {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            artifactId = "$modId-$minecraftVersion"
             from(components["java"])
 
             pom {
@@ -154,42 +159,16 @@ publishing {
 resourcefulGradle {
     templates {
         register("embed") {
-            val minecraftVersion: String by project
-            val version: String by project
             val changelog: String = file("changelog.md").readText(Charsets.UTF_8)
-            val fabricLink: String? = System.getenv("FABRIC_RELEASE_URL")
             val forgeLink: String? = System.getenv("FORGE_RELEASE_URL")
 
             source.set(file("templates/embed.json.template"))
             injectedValues.set(mapOf(
-                    "minecraft" to minecraftVersion,
-                    "version" to version,
-                    "changelog" to StringEscapeUtils.escapeJava(changelog),
-                    "fabric_link" to fabricLink,
-                    "forge_link" to forgeLink
+                "minecraft" to minecraftVersion,
+                "version" to version.toString(),
+                "changelog" to StringEscapeUtils.escapeJava(changelog),
+                "forge_link" to forgeLink
             ))
         }
-    }
-}
-
-runs {
-    // other run configurations here
-
-    maybeCreate("data").apply {
-        programArguments.addAll(
-            "--mod", modId,
-            "--all",
-            "--output", file("src/generated/resources").absolutePath,
-            "--existing", file("src/main/resources/").absolutePath,
-            "--client",
-            "--server"
-        )
-    }
-}
-
-idea {
-    module {
-        isDownloadJavadoc = true
-        isDownloadSources = true
     }
 }

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "tempad:item/tempad/base",
-    "layer1": "tempad:item/tempad/screen_on",
-    "layer2": "tempad:item/tempad/charge_1"
-  }
-}

@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "tempad:item/tempad/base_with_twister",
-    "layer2": "tempad:item/tempad/charge_1"
-  }
-}
