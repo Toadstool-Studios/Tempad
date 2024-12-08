@@ -9,6 +9,7 @@ import com.teamresourceful.resourcefullib.client.fluid.data.ClientFluidPropertie
 import com.teamresourceful.resourcefullib.client.fluid.registry.ResourcefulClientFluidRegistry
 import earth.terrarium.tempad.Tempad
 import earth.terrarium.tempad.client.block.SpatialAnchorRenderer
+import earth.terrarium.tempad.client.block.WorkstationRenderer
 import earth.terrarium.tempad.client.entity.TimedoorRenderer
 import earth.terrarium.tempad.client.screen.anchor.SpatialAnchorScreen
 import earth.terrarium.tempad.client.screen.tempad.NewLocationScreen
@@ -148,6 +149,7 @@ object TempadClient {
         ItemProperties.register(ModItems.locationCard, "written".tempadId, writtenProperty)
         ItemProperties.register(ModItems.rudimentaryTempad, "has_card".tempadId, writtenProperty)
         BlockEntityRenderers.register(ModBlocks.spatialAnchorBE) { SpatialAnchorRenderer(it.blockRenderDispatcher) }
+        BlockEntityRenderers.register(ModBlocks.workstationBE) { WorkstationRenderer(it.itemRenderer) }
 
         if (ModList.get().isLoaded("ars_nouveau")) {
             ArsCompat.init()

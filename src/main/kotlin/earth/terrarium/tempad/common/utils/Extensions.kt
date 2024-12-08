@@ -52,6 +52,7 @@ import net.neoforged.neoforge.capabilities.ItemCapability
 import net.neoforged.neoforge.common.NeoForge
 import net.neoforged.neoforge.fluids.FluidStack
 import net.neoforged.neoforge.fluids.SimpleFluidContent
+import net.neoforged.neoforge.items.ItemStackHandler
 import org.joml.Vector3f
 import java.util.*
 import java.util.function.Function
@@ -228,3 +229,7 @@ val BlockEntity.angle: Float get() = this.blockState.getValue(BlockStateProperti
 fun <T: Any> Codec<T>.parse(tag: CompoundTag): T? = this.parse(NbtOps.INSTANCE, tag).result().getOrNull()
 
 val String.translatable: Component get() = Component.translatable(this)
+
+operator fun ItemStackHandler.get(slot: Int): ItemStack = this.getStackInSlot(slot)
+
+operator fun ItemStackHandler.set(slot: Int, stack: ItemStack) = this.setStackInSlot(slot, stack)

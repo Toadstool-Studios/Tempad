@@ -1,6 +1,5 @@
 package earth.terrarium.tempad.common.utils
 
-import net.minecraft.core.component.DataComponentPatch
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 
